@@ -1,0 +1,56 @@
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Navigate
+} from 'react-router-dom'
+
+import Home from '../pages/Home'
+import Login from '../pages/Login'
+import Admin from '../pages/Admin'
+import Navbar from '../components/Navbar'
+
+function ProtectedRoute({ children }) {
+
+  const isAuthenticated =
+    localStorage.getItem('isAuthenticated') === 'true'
+
+  if (!isAuthenticated) {
+    return <Navigate to="/login" replace />
+  }
+
+  return children
+}
+function AppRouter() {
+  return (
+    <BrowserRouter>
+      <Navbar />
+      <Routes>
+        <Route
+          path="/"
+          element={<Home />}
+        />
+
+        <Route
+          path="/login"
+          element={<Login />}
+        />
+
+        <Route
+          path="/admin"
+          element={
+            <ProtectedRoute>
+              <Admin />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="*"
+          element={<Navigate to="/" replace />}
+        />
+      </Routes>
+    </BrowserRouter>
+  )
+}
+
+export default AppRouter
