@@ -22,3 +22,10 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+text
+node_modules/
+server/database.db
+.env
+dist/
+

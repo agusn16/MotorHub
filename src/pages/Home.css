@@ -1,0 +1,517 @@
+/* =========================
+   HOME
+========================= */
+
+.home {
+    min-height: 100vh;
+    background-color: #f8fafc;
+    color: #111827;
+    font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+
+/* =========================
+   PORTADA CON FOTO
+========================= */
+
+.home-portada {
+    position: relative;
+    height: clamp(340px, 14.5vw, 290px);
+    padding: 0 5%;
+    color: #ffffff;
+    background-image:
+        linear-gradient(
+            90deg,
+            rgba(8, 12, 22, 0.78) 0%,
+            rgba(8, 12, 22, 0.4) 50%,
+            rgba(8, 12, 22, 0.08) 100%
+        ),
+        url('/imagenes/img2.jpeg');
+    background-size: cover;
+    background-position: center 45%;
+    background-repeat: no-repeat;
+    box-sizing: border-box;
+}
+
+.home-portada-texto {
+    position: absolute;
+    left: 5.5%;
+    bottom: 22%;
+    animation: aparecer 0.8s ease;
+}
+
+.home-portada-texto h1 {
+    margin: 0 0 8px;
+    font-size: clamp(34px, 3.6vw, 56px);
+    color: rgba(255, 255, 255, 0.92);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.5px;
+}
+
+.home-portada-texto p {
+    margin: 0;
+    font-size: clamp(14px, 1.2vw, 19px);
+    color: rgba(255, 255, 255, 0.92);
+}
+
+/* =========================
+   CUERPO: LISTA | DETALLE
+========================= */
+
+.home-cuerpo {
+    display: grid;
+    grid-template-columns: 57fr 43fr;
+    align-items: stretch;
+}
+
+.home-lista {
+    padding: 22px 56px 40px 62px;
+    min-width: 0;
+}
+
+.home-detalle {
+    min-width: 0;
+    background-color: #fcfdff;
+    border-left: 1px solid #e5e7eb;
+}
+
+/* =========================
+   BARRA: BUSCADOR, FILTROS, ORDEN
+========================= */
+
+.home-barra {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 22px;
+}
+
+.home-buscador {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    height: 44px;
+    padding: 0 16px;
+    box-sizing: border-box;
+    background-color: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    color: #6b7280;
+    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
+}
+
+.home-buscador input {
+    flex: 1;
+    min-width: 0;
+    border: none;
+    outline: none;
+    background: transparent;
+    font-size: 13px;
+    color: #111827;
+}
+
+.home-boton-barra {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    height: 44px;
+    padding: 0 18px;
+    box-sizing: border-box;
+    background-color: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    font-size: 13px;
+    color: #1f2937;
+    cursor: pointer;
+    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
+}
+
+.home-boton-filtros {
+    color: #2f6fed;
+}
+
+.home-boton-barra:hover {
+    border-color: #2f6fed;
+}
+
+/* ORDENAR */
+
+.home-orden {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.home-orden select {
+    height: 44px;
+    padding: 0 38px 0 18px;
+    box-sizing: border-box;
+    appearance: none;
+    background-color: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    font-size: 13px;
+    color: #1f2937;
+    cursor: pointer;
+    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
+}
+
+.home-orden select:hover {
+    border-color: #2f6fed;
+}
+
+.home-orden svg {
+    position: absolute;
+    right: 14px;
+    pointer-events: none;
+    color: #4b5563;
+}
+
+/* PANEL DE FILTROS */
+
+.home-filtros-caja {
+    position: relative;
+}
+
+.home-panel-filtros {
+    position: absolute;
+    top: 52px;
+    right: 0;
+    z-index: 30;
+    width: 300px;
+    padding: 20px;
+    background-color: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    box-shadow: 0 12px 32px rgba(15, 23, 42, 0.14);
+}
+
+.home-panel-columnas {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.home-panel-columnas h4 {
+    margin: 0 0 10px;
+    font-size: 12px;
+    color: #111827;
+}
+
+.home-panel-estado {
+    margin-top: 18px !important;
+}
+
+.home-panel-columnas label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+    font-size: 12px;
+    color: #4b5563;
+    cursor: pointer;
+}
+
+.home-panel-columnas select {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+    font-size: 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    background-color: #ffffff;
+}
+
+.home-panel-columnas input[type="number"] {
+    width: 100%;
+    margin-bottom: 8px;
+    padding: 8px;
+    box-sizing: border-box;
+    font-size: 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+}
+
+.home-panel-acciones {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.home-panel-limpiar {
+    background: none;
+    border: none;
+    color: #2f6fed;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.home-panel-aplicar {
+    padding: 10px 24px;
+    border: none;
+    border-radius: 8px;
+    background-color: #2f6fed;
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.home-panel-aplicar:hover {
+    background-color: #1f56c4;
+}
+
+/* =========================
+   GRILLA DE TARJETAS
+========================= */
+
+.home-grilla {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.tarjeta {
+    padding: 8px;
+    box-sizing: border-box;
+    background-color: #ffffff;
+    border: 2px solid transparent;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(15, 23, 42, 0.07);
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.tarjeta:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(15, 23, 42, 0.12);
+}
+
+.tarjeta--activa {
+    border-color: #4f86f7;
+}
+
+.tarjeta-imagen {
+    height: 118px;
+    overflow: hidden;
+    border-radius: 8px;
+    background-color: #e9edf2;
+}
+
+.tarjeta-imagen img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.tarjeta-info {
+    padding: 12px 6px 6px;
+}
+
+.tarjeta-info h3 {
+    margin: 0 0 6px;
+    font-size: 13px;
+    font-weight: 700;
+    color: #111827;
+}
+
+.tarjeta-linea {
+    margin: 4px 0;
+    font-size: 11px;
+    color: #6b7280;
+}
+
+.tarjeta-precio {
+    margin: 10px 0 6px;
+    font-size: 17px;
+    font-weight: 700;
+    color: #2f6fed;
+}
+
+.tarjeta-boton {
+    display: none; /* solo se ve en celular (ver el media query de abajo) */
+    width: 100%;
+    margin-top: 10px;
+    padding: 10px;
+    border: none;
+    border-radius: 6px;
+    background-color: #4f86f7;
+    color: #ffffff;
+    font-size: 11px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.tarjeta-boton:hover {
+    background-color: #2f6fed;
+}
+
+.home-vacio {
+    margin-top: 40px;
+    text-align: center;
+    color: #6b7280;
+}
+
+/* =========================
+   ANIMACIÓN
+========================= */
+
+@keyframes aparecer {
+    from {
+        opacity: 0;
+        transform: translateY(16px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+/* CELULAR Y TABLET: sin panel a la derecha, aparece "Ver detalles" y el modal */
+
+@media (max-width: 1000px) {
+
+    .home-cuerpo {
+        grid-template-columns: 1fr;
+    }
+
+    .home-lista {
+        padding: 22px 24px 30px;
+    }
+
+    .home-detalle {
+        display: none;
+    }
+
+    .tarjeta-boton {
+        display: block;
+    }
+
+    .tarjeta--activa {
+        border-color: transparent;
+    }
+
+}
+
+/* PC: el modal nunca se muestra */
+
+@media (min-width: 1001px) {
+
+    .modal-fondo {
+        display: none;
+    }
+
+}
+
+@media (max-width: 700px) {
+
+    .home-grilla {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .home-barra {
+        flex-wrap: wrap;
+    }
+
+    .home-buscador {
+        flex-basis: 100%;
+    }
+
+    .home-panel-filtros {
+        right: auto;
+        left: 0;
+    }
+
+}
+
+@media (max-width: 460px) {
+
+    .home-grilla {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+/* =========================
+   FOTO NO ENCONTRADA
+========================= */
+
+.imagen-vacia {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #e9edf2;
+    color: #9ca3af;
+    font-size: 12px;
+    font-weight: 600;
+    text-align: center;
+}
+
+/* =========================
+   MODAL (DETALLE EN CELULAR)
+========================= */
+
+.modal-fondo {
+    position: fixed;
+    inset: 0;
+    z-index: 1500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px;
+    box-sizing: border-box;
+    background-color: rgba(15, 23, 42, 0.6);
+}
+
+.modal-caja {
+    width: 100%;
+    max-width: 680px;
+    max-height: 92vh;
+    overflow-y: auto;
+    background-color: #ffffff;
+    border-radius: 16px;
+    animation: aparecer 0.25s ease;
+}
+
+.modal-barra {
+    position: sticky;
+    top: 0;
+    z-index: 5;
+    height: 0;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.modal-cerrar {
+    margin: 12px 12px 0 0;
+    width: 34px;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-radius: 50%;
+    background-color: #f3f4f6;
+    color: #374151;
+    cursor: pointer;
+    box-shadow: 0 1px 4px rgba(15, 23, 42, 0.15);
+}
+
+.modal-cerrar:hover {
+    background-color: #e5e7eb;
+}
+
+/* el detalle dentro del modal: deja lugar arriba para el botón de cerrar */
+.modal-caja .detalle {
+    padding: 56px 16px 28px;
+}

@@ -1,0 +1,475 @@
+/* =========================
+   PANEL DE DETALLE (DERECHA)
+========================= */
+
+.detalle {
+    padding: 22px 4% 40px 22px;
+}
+
+/* =========================
+   GALERÍA
+========================= */
+
+.detalle-galeria {
+    display: grid;
+    grid-template-columns: 56px minmax(0, 1fr);
+    gap: 12px;
+    height: clamp(250px, 19vw, 340px);
+}
+
+.detalle-miniaturas {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-height: 0;
+}
+
+.miniatura {
+    position: relative;
+    flex: 1;
+    min-height: 0;
+    padding: 0;
+    overflow: hidden;
+    border: 2px solid transparent;
+    border-radius: 6px;
+    background-color: #e9edf2;
+    cursor: pointer;
+}
+
+.miniatura img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.miniatura--activa {
+    border-color: #4f86f7;
+}
+
+.miniatura--mas span {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(17, 24, 39, 0.72);
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.detalle-principal {
+    position: relative;
+    overflow: hidden;
+    border-radius: 12px;
+    background-color: #e9edf2;
+}
+
+.detalle-principal > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.detalle-zoom {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 12px;
+    border: none;
+    border-radius: 18px;
+    background-color: rgba(17, 24, 39, 0.6);
+    color: #ffffff;
+    font-size: 11px;
+    cursor: pointer;
+}
+
+.detalle-flecha {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-radius: 50%;
+    background-color: rgba(17, 24, 39, 0.6);
+    color: #ffffff;
+    cursor: pointer;
+}
+
+.detalle-flecha:hover {
+    background-color: rgba(17, 24, 39, 0.85);
+}
+
+.detalle-flecha--izq {
+    left: 10px;
+}
+
+.detalle-flecha--der {
+    right: 10px;
+}
+
+.detalle-contador {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 3px 10px;
+    border-radius: 12px;
+    background-color: rgba(17, 24, 39, 0.55);
+    color: #ffffff;
+    font-size: 10px;
+}
+
+/* =========================
+   CUERPO
+========================= */
+
+.detalle-cuerpo {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    gap: 22px;
+    margin-top: 20px;
+    align-items: start;
+}
+
+.detalle-datos h2 {
+    margin: 0 0 8px;
+    font-size: 20px;
+    font-weight: 700;
+    color: #111827;
+}
+
+.detalle-resumen {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: #6b7280;
+}
+
+.detalle-estado {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 3px 10px 3px 7px;
+    border-radius: 14px;
+    background-color: #e8f0fe;
+    color: #2f6fed;
+    font-weight: 600;
+}
+
+.detalle-corta {
+    margin: 12px 0 14px;
+    font-size: 12px;
+    line-height: 1.5;
+    color: #6b7280;
+}
+
+.detalle-precio {
+    font-size: 32px;
+    font-weight: 700;
+    color: #111827;
+    letter-spacing: -0.5px;
+}
+
+.detalle-stock {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 10px;
+    padding: 5px 12px 5px 9px;
+    border-radius: 14px;
+    background-color: #e7f6ec;
+    color: #1f8a4c;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.detalle-stock--sin {
+    background-color: #fdeaea;
+    color: #c53030;
+}
+
+/* ESPECIFICACIONES */
+
+.detalle-especificaciones {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px 14px;
+    margin-top: 22px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.especificacion {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #374151;
+}
+
+.especificacion small {
+    display: block;
+    font-size: 11px;
+    color: #9ca3af;
+}
+
+.especificacion strong {
+    display: block;
+    margin-top: 2px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #111827;
+}
+
+.detalle-datos h4,
+.detalle-descripcion h4 {
+    margin: 18px 0 10px;
+    font-size: 12px;
+    font-weight: 700;
+    color: #111827;
+}
+
+.detalle-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.detalle-chips span {
+    padding: 6px 14px;
+    border-radius: 16px;
+    background-color: #f1f3f6;
+    color: #6b7280;
+    font-size: 11px;
+}
+
+/* =========================
+   VENDEDOR
+========================= */
+
+.vendedor {
+    padding: 16px;
+    box-sizing: border-box;
+    background-color: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+}
+
+.vendedor-cabecera {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 16px;
+}
+
+.vendedor-avatar {
+    flex-shrink: 0;
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background-color: #e5e7eb;
+    color: #6b7280;
+}
+
+.vendedor-cabecera strong {
+    display: block;
+    font-size: 11px;
+    color: #111827;
+}
+
+.vendedor-puntaje {
+    display: block;
+    margin: 3px 0;
+    font-size: 10px;
+    color: #6b7280;
+}
+
+.vendedor-estrella {
+    color: #f5a623;
+}
+
+.vendedor-verificada {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 2px 8px 2px 5px;
+    border-radius: 10px;
+    background-color: #e7f6ec;
+    color: #1f8a4c;
+    font-size: 9px;
+    font-weight: 500;
+}
+
+.vendedor button {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 10px;
+    padding: 11px;
+    box-sizing: border-box;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.2s ease, background-color 0.2s ease;
+}
+
+.boton-whatsapp {
+    border: 1px solid #3fae5a;
+    background-color: #3fae5a;
+    color: #ffffff;
+}
+
+.boton-whatsapp:hover {
+    background-color: #2f9a4a;
+}
+
+.boton-financiacion {
+    border: 1px solid #4f86f7;
+    background-color: #ffffff;
+    color: #2f6fed;
+}
+
+.boton-financiacion:hover {
+    background-color: #eef4ff;
+}
+
+.boton-guardar {
+    border: 1px solid #e5e7eb;
+    background-color: #f3f4f6;
+    color: #374151;
+}
+
+.boton-guardar:hover {
+    background-color: #e9ebee;
+}
+
+.vendedor-beneficio {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 18px;
+    color: #374151;
+}
+
+.vendedor-beneficio:first-of-type {
+    margin-top: 22px;
+}
+
+.vendedor-beneficio strong {
+    display: block;
+    font-size: 11px;
+    color: #111827;
+}
+
+.vendedor-beneficio small {
+    display: block;
+    margin-top: 2px;
+    font-size: 9px;
+    color: #9ca3af;
+}
+
+/* =========================
+   DESCRIPCIÓN
+========================= */
+
+.detalle-descripcion {
+    margin-top: 24px;
+    padding-top: 6px;
+    border-top: 1px solid #e5e7eb;
+}
+
+.detalle-descripcion p {
+    margin: 0;
+    font-size: 12px;
+    line-height: 1.7;
+    color: #6b7280;
+}
+
+/* =========================
+   ZOOM (FOTO GRANDE)
+========================= */
+
+.zoom-fondo {
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 30px;
+    box-sizing: border-box;
+    background-color: rgba(0, 0, 0, 0.88);
+}
+
+.zoom-fondo img {
+    max-width: 100%;
+    max-height: 100%;
+    border-radius: 8px;
+}
+
+.zoom-cerrar {
+    position: absolute;
+    top: 20px;
+    right: 24px;
+    display: flex;
+    padding: 8px;
+    border: none;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.15);
+    color: #ffffff;
+    cursor: pointer;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 1250px) {
+
+    .detalle-cuerpo {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+@media (max-width: 1000px) {
+
+    .detalle {
+        padding: 22px 24px 40px;
+    }
+
+    .detalle-cuerpo {
+        grid-template-columns: minmax(0, 1fr) 236px;
+    }
+
+}
+
+@media (max-width: 700px) {
+
+    .detalle-cuerpo {
+        grid-template-columns: 1fr;
+    }
+
+    .detalle-galeria {
+        grid-template-columns: 46px minmax(0, 1fr);
+    }
+
+}

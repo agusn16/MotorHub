@@ -1,21 +1,28 @@
+/* =========================
+   NAVBAR (VERSIÓN BLANCA)
+========================= */
+
 .navbar {
   width: 100%;
-  border-bottom: 1px solid #ddd;
+  position: sticky;
+  top: 0;
   background: #ffffff;
+  z-index: 1000;
 }
 
 .navbar-container {
   max-width: 1200px;
   margin: 0 auto;
-
   display: flex;
   align-items: center;
   justify-content: space-between;
-
   padding: 16px 24px;
 }
 
 .navbar-logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
   font-size: 20px;
   font-weight: 700;
 }
@@ -35,4 +42,42 @@
 
 .navbar-links a:hover {
   color: #555;
+}
+
+/* =========================
+   VERSIÓN TRANSPARENTE (SOLO EN EL HOME)
+========================= */
+
+.navbar.navbar--transparente {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: transparent;
+  color: #ffffff;
+}
+
+.navbar--transparente .navbar-container {
+  max-width: none;
+  padding: 22px 5%;
+}
+
+.navbar--transparente .navbar-links {
+  gap: 44px;
+}
+
+.navbar--transparente .navbar-links a {
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.navbar--transparente .navbar-links a:hover {
+  color: #ffffff;
+  opacity: 0.75;
+}
+
+@media (max-width: 600px) {
+  .navbar--transparente .navbar-links {
+    gap: 20px;
+  }
 }

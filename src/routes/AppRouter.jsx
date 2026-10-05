@@ -8,6 +8,7 @@ import {
 import Home from '../pages/Home'
 import Login from '../pages/Login'
 import Admin from '../pages/Admin'
+import Detalle from '../pages/detalle'
 import Navbar from '../components/Navbar'
 
 function ProtectedRoute({ children }) {
@@ -21,21 +22,29 @@ function ProtectedRoute({ children }) {
 
   return children
 }
+
 function AppRouter() {
   return (
     <BrowserRouter>
+
+      {/* Un solo Navbar para toda la aplicación */}
       <Navbar />
+
       <Routes>
+
+        {/* HOME */}
         <Route
           path="/"
           element={<Home />}
         />
 
+        {/* LOGIN */}
         <Route
           path="/login"
           element={<Login />}
         />
 
+        {/* ADMIN */}
         <Route
           path="/admin"
           element={
@@ -44,11 +53,21 @@ function AppRouter() {
             </ProtectedRoute>
           }
         />
+
+        {/* DETALLE */}
+        <Route
+          path="/detalle/:id"
+          element={<Detalle />}
+        />
+
+        {/* RUTA NO EXISTENTE */}
         <Route
           path="*"
           element={<Navigate to="/" replace />}
         />
+
       </Routes>
+
     </BrowserRouter>
   )
 }

@@ -1,12 +1,18 @@
+.navbar {
+  width: 100%;
+  position: sticky;
+  top: 0;
+  background: #ffffff;
+  z-index: 1000;
+}
+
+
 .login-container {
   min-height: calc(100vh - 70px);
-
   display: flex;
   align-items: center;
   justify-content: center;
-
   padding: 40px 20px;
-
   background: #f5f6f8;
 }
 

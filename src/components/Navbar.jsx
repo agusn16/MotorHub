@@ -1,14 +1,25 @@
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
+import Icono from './Iconos'
 import './Navbar.css'
 
 function Navbar() {
+
+  const { pathname } = useLocation()
+
+  const transparente = pathname === '/'
+
   return (
-    <nav className="navbar">
+    <nav className={transparente ? 'navbar navbar--transparente' : 'navbar'}>
+
       <div className="navbar-container">
+
         <div className="navbar-logo">
-          Mi Aplicación
+          <Icono nombre="moto" tamano={26} />
+          MotorHub
         </div>
+
         <div className="navbar-links">
+
           <Link to="/">
             Home
           </Link>
@@ -20,8 +31,11 @@ function Navbar() {
           <Link to="/admin">
             Admin
           </Link>
+
         </div>
+
       </div>
+
     </nav>
   )
 }
