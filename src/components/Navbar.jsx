@@ -1,3 +1,5 @@
+// Navbar.jsx
+
 import { Link, useLocation } from 'react-router-dom'
 import Icono from './Iconos'
 import './Navbar.css'

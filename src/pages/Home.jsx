@@ -1,3 +1,5 @@
+// Home.jsx
+
 import './Home.css'
 import { useEffect, useState } from 'react'
 import Icono from '../components/Iconos'
