@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import './detalle.css'
+import { obtenerProducto } from '../services/productos'
 
 function Detalle() {
 
@@ -12,23 +13,26 @@ function Detalle() {
 
     useEffect(() => {
 
-        fetch('http://localhost:3000/productos')
-            .then(respuesta => respuesta.json())
-            .then(datos => {
+        const cargarProducto = async () => {
 
-                const productoEncontrado = datos.find(
-                    producto => producto.id === Number(id)
-                )
+            try {
+
+                const productoEncontrado = await obtenerProducto(id)
 
                 setProducto(productoEncontrado)
 
-            })
-            .catch(error => {
+            } catch (error) {
+
                 console.error(
                     'Error al obtener el vehículo:',
                     error
                 )
-            })
+
+            }
+
+        }
+
+        cargarProducto()
 
     }, [id])
 

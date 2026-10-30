@@ -5,13 +5,14 @@ import { useEffect, useState } from 'react'
 import Icono from '../components/Iconos'
 import TarjetaVehiculo from '../components/TarjetaVehiculo'
 import DetalleVehiculo from '../components/DetalleVehiculo'
+import { obtenerProductos } from '../services/productos'
 
 // =====================================================
 //  DATOS FIJOS
-//  Estos datos todavía no existen en tu tabla "productos",
+//  Estos datos todavía no existen en tu colección "productos",
 //  así que se repiten igual en todos los vehículos.
-//  Cuando crees las columnas, borrás lo que corresponda de acá
-//  y listo: lo que venga de tu tabla va a reemplazar a estos valores.
+//  Cuando agregues esos campos en Firestore, borrás lo que corresponda
+//  de acá y lo que venga de la base va a reemplazar a estos valores.
 // =====================================================
 const DATOS_FIJOS = {
     marca: 'Bajaj',
@@ -28,7 +29,7 @@ const FILTROS_VACIOS = { desde: '', hasta: '', disponibilidad: '' }
 function Home() {
 
     // =========================
-    // PRODUCTOS DE TU TABLA
+    // PRODUCTOS DE FIRESTORE
     // =========================
 
     const [productos, setProductos] = useState([])
@@ -41,13 +42,7 @@ function Home() {
 
             try {
 
-                const respuesta = await fetch('http://localhost:3000/productos')
-
-                if (!respuesta.ok) {
-                    throw new Error('No se pudieron cargar los productos')
-                }
-
-                const datos = await respuesta.json()
+                const datos = await obtenerProductos()
 
                 setProductos(datos)
 
@@ -68,7 +63,7 @@ function Home() {
 
     }, [])
 
-    // A cada producto de tu tabla se le suman los datos fijos de arriba
+    // A cada producto se le suman los datos fijos de arriba
     const vehiculos = productos.map(producto => ({
         ...DATOS_FIJOS,
         ...producto,
@@ -283,7 +278,7 @@ function Home() {
                     </div>
 
 
-                    {/* BUCLE: una tarjeta por cada producto de tu tabla */}
+                    {/* BUCLE: una tarjeta por cada producto */}
 
                     <div className="home-grilla">
                         {lista.map(v => (
@@ -303,7 +298,7 @@ function Home() {
 
                     {!cargando && error && (
                         <p className="home-vacio">
-                            No pudimos conectar con el servidor. Revisá que esté encendido.
+                            No pudimos conectar con la base de datos. Revisá tu conexión y la configuración de Firebase.
                         </p>
                     )}
 
