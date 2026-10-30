@@ -1,9 +1,24 @@
-// Admi.jsx
+// Admin.jsx
 
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import '../App.css'
-import Navbar from '../components/Navbar'
+import {
+    obtenerProductos,
+    crearProducto,
+    actualizarProducto,
+    eliminarProductoPorId
+} from '../services/productos'
+
+const PRODUCTO_VACIO = {
+    nombre: '',
+    descripcion: '',
+    codigo: '',
+    precio: '',
+    stock: '',
+    imagen: '',
+    anio: ''
+}
 
 function Admin() {
 
@@ -17,15 +32,7 @@ function Admin() {
     // ESTADO DEL PRODUCTO
     // =========================
 
-    const [producto, setProducto] = useState({
-        nombre: '',
-        descripcion: '',
-        codigo: '',
-        precio: '',
-        stock: '',
-        imagen: '',
-        anio: ''
-    })
+    const [producto, setProducto] = useState(PRODUCTO_VACIO)
 
     const [indiceEditando, setIndiceEditando] = useState(null)
 
@@ -45,15 +52,7 @@ function Admin() {
 
             try {
 
-                const respuesta = await fetch(
-                    'http://localhost:3000/productos'
-                )
-
-                if (!respuesta.ok) {
-                    throw new Error('No se pudieron cargar los productos')
-                }
-
-                const datos = await respuesta.json()
+                const datos = await obtenerProductos()
 
                 setProductos(datos)
 
@@ -156,54 +155,24 @@ function Admin() {
 
         try {
 
-            // =========================
-            // EDITAR
-            // =========================
-
             if (indiceEditando !== null) {
 
-                const productoEditado =
-                    productos[indiceEditando]
+                // =========================
+                // EDITAR
+                // =========================
 
-                const respuesta = await fetch(
-                    `http://localhost:3000/productos/${productoEditado.id}`,
-                    {
-                        method: 'PUT',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({
-                            nombre: producto.nombre,
-                            descripcion: producto.descripcion,
-                            codigo: producto.codigo,
-                            anio: producto.anio,
-                            precio: Number(producto.precio),
-                            stock: Number(producto.stock),
-                            imagen: producto.imagen
-                        })
-                    }
+                const productoEditado = productos[indiceEditando]
+
+                const actualizado = await actualizarProducto(
+                    productoEditado.id,
+                    producto
                 )
-
-                if (!respuesta.ok) {
-                    throw new Error(
-                        'No se pudo actualizar el producto'
-                    )
-                }
-
-                const datos = await respuesta.json()
-
-                console.log(datos)
 
                 const nuevosProductos = [...productos]
 
                 nuevosProductos[indiceEditando] = {
-                    id: productoEditado.id,
-                    nombre: producto.nombre,
-                    descripcion: producto.descripcion,
-                    codigo: producto.codigo,
-                    precio: Number(producto.precio),
-                    stock: Number(producto.stock),
-                    anio: producto.anio
+                    ...productoEditado,
+                    ...actualizado
                 }
 
                 setProductos(nuevosProductos)
@@ -216,45 +185,9 @@ function Admin() {
                 // AGREGAR
                 // =========================
 
-                const respuesta = await fetch(
-                    'http://localhost:3000/productos',
-                    {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({
-                            nombre: producto.nombre,
-                            descripcion: producto.descripcion,
-                            codigo: producto.codigo,
-                            precio: Number(producto.precio),
-                            stock: Number(producto.stock),
-                            imagen: producto.imagen,
-                            anio: producto.anio
-                        })
-                    }
-                )
+                const creado = await crearProducto(producto)
 
-                if (!respuesta.ok) {
-                    throw new Error(
-                        'No se pudo crear el producto'
-                    )
-                }
-
-                const datos = await respuesta.json()
-
-                setProductos([
-                    ...productos,
-                    {
-                        id: datos.id,
-                        nombre: producto.nombre,
-                        descripcion: producto.descripcion,
-                        codigo: producto.codigo,
-                        precio: Number(producto.precio),
-                        stock: Number(producto.stock),
-                        anio: producto.anio
-                    }
-                ])
+                setProductos([...productos, creado])
 
             }
 
@@ -262,21 +195,23 @@ function Admin() {
             // LIMPIAR FORMULARIO
             // =========================
 
-            setProducto({
-                nombre: '',
-                descripcion: '',
-                codigo: '',
-                precio: '',
-                stock: '',
-                imagen: '',
-                anio: ''
-            })
+            setProducto(PRODUCTO_VACIO)
 
             setErrores({})
 
             setFiltroStock('todos')
 
         } catch (error) {
+
+            if (error.message === 'CODIGO_DUPLICADO') {
+
+                setErrores({
+                    codigo: 'Ya existe un producto con ese código'
+                })
+
+                return
+
+            }
 
             console.error(
                 'Error al guardar producto:',
@@ -299,7 +234,6 @@ function Admin() {
     // ELIMINAR PRODUCTO
     // =========================
 
-    
     const eliminarProducto = async (index) => {
 
         const confirmar = window.confirm(
@@ -310,32 +244,25 @@ function Admin() {
             return
         }
 
-        const producto = productos[index]
+        const productoAEliminar = productos[index]
 
         try {
 
-            const respuesta = await fetch(
-                `http://localhost:3000/productos/${producto.id}`,
-                {
-                    method: 'DELETE'
-                }
-            )
-
-            if (!respuesta.ok) {
-                throw new Error(
-                    'No se pudo eliminar el producto'
-                )
-            }
-
-            const datos = await respuesta.json()
-
-            console.log(datos)
+            await eliminarProductoPorId(productoAEliminar.id)
 
             const nuevosProductos = productos.filter(
                 (_, i) => i !== index
             )
 
             setProductos(nuevosProductos)
+
+            // Si se estaba editando, se cancela la edición para no
+            // quedar apuntando a un índice que cambió
+            if (indiceEditando !== null) {
+                setIndiceEditando(null)
+                setProducto(PRODUCTO_VACIO)
+                setErrores({})
+            }
 
         } catch (error) {
 
@@ -347,7 +274,6 @@ function Admin() {
         }
 
     }
-
 
     // =========================
     // EDITAR PRODUCTO
@@ -828,14 +754,7 @@ function Admin() {
 
                                 setIndiceEditando(null)
 
-                                setProducto({
-                                    nombre: '',
-                                    descripcion: '',
-                                    codigo: '',
-                                    precio: '',
-                                    stock: '',
-                                    imagen: ''
-                                })
+                                setProducto(PRODUCTO_VACIO)
 
                                 setErrores({})
 
