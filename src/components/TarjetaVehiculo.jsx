@@ -28,7 +28,7 @@ function TarjetaVehiculo({ vehiculo, activa, alElegir, alVerDetalles }) {
                 </p>
 
                 <p className="tarjeta-linea">
-                    Código: {vehiculo.codigo}
+                    {[vehiculo.anio, vehiculo.categoria || vehiculo.tipoVehiculo].filter(Boolean).join(' · ')}
                 </p>
 
                 <div className="tarjeta-precio">
