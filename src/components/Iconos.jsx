@@ -97,6 +97,27 @@ const DIBUJOS = {
             <path d="M14 3v4h4M10 13h5M10 17h5" />
         </>
     ),
+    panel: (
+        <>
+            <rect x="3" y="3" width="7" height="9" rx="1" />
+            <rect x="14" y="3" width="7" height="5" rx="1" />
+            <rect x="14" y="12" width="7" height="9" rx="1" />
+            <rect x="3" y="16" width="7" height="5" rx="1" />
+        </>
+    ),
+    salir: (
+        <>
+            <path d="M9 4H5v16h4" />
+            <path d="m16 8 4 4-4 4M20 12H9" />
+        </>
+    ),
+    chat: (
+        <>
+            <path d="M4 5h16v11H10l-6 4z" />
+            <path d="M8.5 10h7" />
+        </>
+    ),
+    enviar: <path d="M21 3 10 14M21 3l-7 18-4-7-7-4z" />,
     persona: (
         <>
             <circle cx="12" cy="9" r="4" />

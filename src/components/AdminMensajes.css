@@ -1,0 +1,146 @@
+/* AdminMensajes.css */
+
+.mensajes-admin {
+  margin-top: 30px;
+  margin-bottom: 40px;
+  text-align: left;
+}
+
+.mensajes-admin h2 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.mensajes-admin-contador {
+  min-width: 22px;
+  height: 22px;
+  padding: 0 7px;
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: #ef4444;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.mensajes-admin-error {
+  margin: 0 0 14px;
+  color: #b91c1c;
+  font-size: 14px;
+}
+
+.mensajes-admin-grilla {
+  display: grid;
+  grid-template-columns: 290px 1fr;
+  height: 480px;
+  overflow: hidden;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+}
+
+.mensajes-admin-lista {
+  overflow-y: auto;
+  border-right: 1px solid #e5e7eb;
+  background: #f8fafc;
+}
+
+.mensajes-admin-item {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 12px 16px;
+  border: none;
+  border-bottom: 1px solid #eceff4;
+  background: transparent;
+  text-align: left;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.mensajes-admin-item:hover {
+  background: #eef3fd;
+}
+
+.mensajes-admin-item--activo {
+  background: #e3ecfd;
+}
+
+.mensajes-admin-item-nombre {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #111827;
+}
+
+.mensajes-admin-punto {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #ef4444;
+}
+
+.mensajes-admin-item-texto {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 12.5px;
+  color: #6b7280;
+}
+
+.mensajes-admin-hilo {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+}
+
+.mensajes-admin-hilo-cabecera {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  padding: 14px 18px;
+  border-bottom: 1px solid #e5e7eb;
+  color: #111827;
+}
+
+.mensajes-admin-hilo-cabecera small {
+  color: #6b7280;
+}
+
+.mensajes-admin-vacio {
+  margin: 0;
+  padding: 18px;
+  font-size: 13px;
+  color: #6b7280;
+}
+
+.mensajes-admin-vacio--centro {
+  margin: auto;
+  text-align: center;
+}
+
+@media (max-width: 760px) {
+
+  .mensajes-admin-grilla {
+    grid-template-columns: 1fr;
+    height: auto;
+  }
+
+  .mensajes-admin-lista {
+    max-height: 190px;
+    border-right: none;
+    border-bottom: 1px solid #e5e7eb;
+  }
+
+  .mensajes-admin-hilo {
+    height: 420px;
+  }
+
+}

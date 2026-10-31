@@ -3,6 +3,8 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import '../App.css'
+import { useAuth } from '../context/AuthContext'
+import AdminMensajes from '../components/AdminMensajes'
 import {
     obtenerProductos,
     crearProducto,
@@ -94,15 +96,17 @@ function Admin() {
 
     const navigate = useNavigate()
 
+    const { cerrarSesion } = useAuth()
+
     // =========================
     // CERRAR SESIÓN
     // =========================
 
-    const logout = () => {
+    const logout = async () => {
 
-        localStorage.removeItem('isAuthenticated')
+        await cerrarSesion()
 
-        navigate('/login')
+        navigate('/')
 
     }
 
@@ -993,6 +997,10 @@ function Admin() {
                 </div>
 
             </section>
+
+            {/* MENSAJES DE LOS USUARIOS */}
+
+            <AdminMensajes />
 
         </div>
 

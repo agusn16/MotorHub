@@ -7,19 +7,27 @@ import {
   Navigate
 } from 'react-router-dom'
 
+import { AuthProvider, useAuth } from '../context/AuthContext'
+
 import Home from '../pages/Home'
 import Login from '../pages/Login'
 import Admin from '../pages/Admin'
 import Detalle from '../pages/detalle'
 import Navbar from '../components/Navbar'
+import ChatFlotante from '../components/ChatFlotante'
 
-function ProtectedRoute({ children }) {
+// Solo entra el administrador. Si no lo es, vuelve al Home
+// (sin mostrar la dirección del login oculto).
+function RutaAdmin({ children }) {
 
-  const isAuthenticated =
-    localStorage.getItem('isAuthenticated') === 'true'
+  const { rol, cargando } = useAuth()
 
-  if (!isAuthenticated) {
-    return <Navigate to="/login" replace />
+  if (cargando) {
+    return null
+  }
+
+  if (rol !== 'admin') {
+    return <Navigate to="/" replace />
   }
 
   return children
@@ -29,46 +37,59 @@ function AppRouter() {
   return (
     <BrowserRouter>
 
-      {/* Un solo Navbar para toda la aplicación */}
-      <Navbar />
+      <AuthProvider>
 
-      <Routes>
+        {/* Un solo Navbar para toda la aplicación */}
+        <Navbar />
 
-        {/* HOME */}
-        <Route
-          path="/"
-          element={<Home />}
-        />
+        <Routes>
 
-        {/* LOGIN */}
-        <Route
-          path="/login"
-          element={<Login />}
-        />
+          {/* HOME */}
+          <Route
+            path="/"
+            element={<Home />}
+          />
 
-        {/* ADMIN */}
-        <Route
-          path="/admin"
-          element={
-            <ProtectedRoute>
-              <Admin />
-            </ProtectedRoute>
-          }
-        />
+          {/* LOGIN DE USUARIOS */}
+          <Route
+            path="/login"
+            element={<Login modo="usuario" />}
+          />
 
-        {/* DETALLE */}
-        <Route
-          path="/detalle/:id"
-          element={<Detalle />}
-        />
+          {/* LOGIN DEL ADMINISTRADOR (dirección oculta, sin link en la web) */}
+          <Route
+            path="/administrador"
+            element={<Login modo="admin" />}
+          />
 
-        {/* RUTA NO EXISTENTE */}
-        <Route
-          path="*"
-          element={<Navigate to="/" replace />}
-        />
+          {/* PANEL DE ADMINISTRACIÓN */}
+          <Route
+            path="/admin"
+            element={
+              <RutaAdmin>
+                <Admin />
+              </RutaAdmin>
+            }
+          />
 
-      </Routes>
+          {/* DETALLE */}
+          <Route
+            path="/detalle/:id"
+            element={<Detalle />}
+          />
+
+          {/* RUTA NO EXISTENTE */}
+          <Route
+            path="*"
+            element={<Navigate to="/" replace />}
+          />
+
+        </Routes>
+
+        {/* Chatbot y chat, flotando en todas las pantallas públicas */}
+        <ChatFlotante />
+
+      </AuthProvider>
 
     </BrowserRouter>
   )

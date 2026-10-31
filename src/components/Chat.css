@@ -1,0 +1,244 @@
+/* Chat.css — botón flotante y panel (tema oscuro / vidrio) */
+
+.chat-lanzador {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 1200;
+  width: 58px;
+  height: 58px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 50%;
+  background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+  color: #ffffff;
+  cursor: pointer;
+  box-shadow: 0 10px 30px rgba(29, 78, 216, 0.55);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.chat-lanzador:hover {
+  transform: scale(1.07);
+  box-shadow: 0 14px 36px rgba(59, 130, 246, 0.6);
+}
+
+.chat-punto {
+  position: absolute;
+  top: 3px;
+  right: 3px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #ef4444;
+  border: 2px solid #ffffff;
+}
+
+.chat-panel {
+  position: fixed;
+  right: 24px;
+  bottom: 96px;
+  z-index: 1200;
+  width: 372px;
+  height: min(560px, calc(100vh - 130px));
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: 20px;
+  background: rgba(10, 14, 26, 0.86);
+  -webkit-backdrop-filter: blur(20px) saturate(150%);
+  backdrop-filter: blur(20px) saturate(150%);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 0 28px 70px rgba(0, 0, 0, 0.55);
+  color: #ffffff;
+  text-align: left;
+  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  font-size: 14px;
+  line-height: 1.4;
+  animation: chatEntrar 0.22s ease;
+}
+
+@keyframes chatEntrar {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.chat-cabecera {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 14px 12px 16px;
+}
+
+.chat-cabecera-icono {
+  width: 38px;
+  height: 38px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+}
+
+.chat-cabecera-texto {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.chat-cabecera-texto strong {
+  font-size: 15px;
+}
+
+.chat-cabecera-texto small {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.chat-cerrar {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.chat-cerrar:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.chat-pestanas {
+  display: flex;
+  gap: 6px;
+  padding: 0 14px 10px;
+}
+
+.chat-pestana {
+  position: relative;
+  flex: 1;
+  padding: 8px 0;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.65);
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.chat-pestana:hover {
+  color: #ffffff;
+}
+
+.chat-pestana--activa {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.16);
+  color: #ffffff;
+}
+
+.chat-pestana-punto {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  margin-left: 6px;
+  border-radius: 50%;
+  background: #ef4444;
+}
+
+/* Preguntas frecuentes */
+
+.chat-preguntas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  max-height: 38%;
+  overflow-y: auto;
+  padding: 10px 12px 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.chat-pregunta {
+  padding: 8px 12px;
+  border: 1px solid rgba(96, 165, 250, 0.5);
+  border-radius: 999px;
+  background: rgba(59, 130, 246, 0.12);
+  color: #dbeafe;
+  font-family: inherit;
+  font-size: 12.5px;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.chat-pregunta:hover {
+  background: rgba(59, 130, 246, 0.28);
+}
+
+.chat-accion {
+  align-self: flex-start;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* Aviso "logueate" */
+
+.chat-aviso {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 24px;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.chat-aviso p {
+  margin: 0;
+  max-width: 230px;
+  font-size: 14px;
+}
+
+.chat-aviso .chat-accion {
+  align-self: center;
+}
+
+@media (max-width: 520px) {
+
+  .chat-lanzador {
+    right: 16px;
+    bottom: 16px;
+  }
+
+  .chat-panel {
+    right: 12px;
+    left: 12px;
+    bottom: 86px;
+    width: auto;
+  }
+
+}
