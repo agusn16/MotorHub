@@ -1,0 +1,144 @@
+/* Mensajes.css — burbujas, separadores de día y caja de envío (compartidos) */
+
+.tema-oscuro {
+  --b-propia-bg: linear-gradient(135deg, #3b82f6, #1d4ed8);
+  --b-propia-tx: #ffffff;
+  --b-otra-bg: rgba(255, 255, 255, 0.12);
+  --b-otra-tx: #f3f4f6;
+  --dia-bg: rgba(255, 255, 255, 0.12);
+  --dia-tx: rgba(255, 255, 255, 0.78);
+  --in-bg: rgba(255, 255, 255, 0.1);
+  --in-tx: #ffffff;
+  --in-ph: rgba(255, 255, 255, 0.5);
+  --in-borde: rgba(255, 255, 255, 0.16);
+}
+
+.tema-claro {
+  --b-propia-bg: linear-gradient(135deg, #3b82f6, #2563eb);
+  --b-propia-tx: #ffffff;
+  --b-otra-bg: #eef1f6;
+  --b-otra-tx: #111827;
+  --dia-bg: #e5e9f0;
+  --dia-tx: #4b5563;
+  --in-bg: #ffffff;
+  --in-tx: #111827;
+  --in-ph: #9ca3af;
+  --in-borde: #d9dee7;
+}
+
+.mensajes-lista {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.mensajes-dia {
+  align-self: center;
+  margin: 10px 0 6px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 11.5px;
+  font-weight: 600;
+  background: var(--dia-bg);
+  color: var(--dia-tx);
+}
+
+.burbuja {
+  max-width: 82%;
+  padding: 9px 13px;
+  border-radius: 16px;
+  font-size: 14px;
+  line-height: 1.4;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  text-align: left;
+}
+
+.burbuja--propia {
+  align-self: flex-end;
+  background: var(--b-propia-bg);
+  color: var(--b-propia-tx);
+  border-bottom-right-radius: 5px;
+}
+
+.burbuja--otra {
+  align-self: flex-start;
+  background: var(--b-otra-bg);
+  color: var(--b-otra-tx);
+  border-bottom-left-radius: 5px;
+}
+
+.mensajes-vacio {
+  margin: auto;
+  max-width: 240px;
+  text-align: center;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--dia-tx);
+}
+
+/* Caja de envío estilo WhatsApp: input redondeado + botón enviar */
+
+.entrada-mensaje {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  border-top: 1px solid var(--in-borde);
+}
+
+.entrada-mensaje input {
+  flex: 1;
+  min-width: 0;
+  height: 42px;
+  padding: 0 16px;
+  box-sizing: border-box;
+  border-radius: 999px;
+  border: 1px solid var(--in-borde);
+  background: var(--in-bg);
+  color: var(--in-tx);
+  font-family: inherit;
+  font-size: 14px;
+  outline: none;
+}
+
+.entrada-mensaje input::placeholder {
+  color: var(--in-ph);
+}
+
+.entrada-mensaje input:focus {
+  border-color: #60a5fa;
+}
+
+.entrada-mensaje input:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.entrada-mensaje button {
+  width: 42px;
+  height: 42px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+  color: #ffffff;
+  cursor: pointer;
+  transition: transform 0.15s ease, opacity 0.2s ease;
+}
+
+.entrada-mensaje button:hover:not(:disabled) {
+  transform: scale(1.06);
+}
+
+.entrada-mensaje button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
