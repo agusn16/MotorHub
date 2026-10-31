@@ -89,6 +89,13 @@ export async function crearProducto(datos) {
         stock: Number(datos.stock),
         imagen: datos.imagen || '',
         anio: datos.anio,
+        marca: datos.marca || '',
+        modelo: datos.modelo || '',
+        tipoVehiculo: datos.tipoVehiculo || '',
+        categoria: datos.categoria || '',
+        cilindrada: datos.cilindrada || '',
+        kilometraje: datos.kilometraje === '' || datos.kilometraje == null ? null : Number(datos.kilometraje),
+        estado: datos.estado || '',
         creadoEn: Date.now(),
     }
 
@@ -118,6 +125,13 @@ export async function actualizarProducto(id, datos) {
         stock: Number(datos.stock),
         imagen: datos.imagen || '',
         anio: datos.anio,
+        marca: datos.marca || '',
+        modelo: datos.modelo || '',
+        tipoVehiculo: datos.tipoVehiculo || '',
+        categoria: datos.categoria || '',
+        cilindrada: datos.cilindrada || '',
+        kilometraje: datos.kilometraje === '' || datos.kilometraje == null ? null : Number(datos.kilometraje),
+        estado: datos.estado || '',
     }
 
     await updateDoc(doc(db, 'productos', String(id)), cambios)

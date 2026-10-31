@@ -7,23 +7,6 @@ import TarjetaVehiculo from '../components/TarjetaVehiculo'
 import DetalleVehiculo from '../components/DetalleVehiculo'
 import { obtenerProductos } from '../services/productos'
 
-// =====================================================
-//  DATOS FIJOS
-//  Estos datos todavía no existen en tu colección "productos",
-//  así que se repiten igual en todos los vehículos.
-//  Cuando agregues esos campos en Firestore, borrás lo que corresponda
-//  de acá y lo que venga de la base va a reemplazar a estos valores.
-// =====================================================
-const DATOS_FIJOS = {
-    marca: 'Bajaj',
-    modelo: 'Rouser NS 200',
-    cilindrada: 200,
-    tipo: 'Naked',
-    estado: 'Usada',
-    km: 70000,
-    anio: 2020,
-}
-
 const FILTROS_VACIOS = { desde: '', hasta: '', disponibilidad: '' }
 
 function Home() {
@@ -63,11 +46,8 @@ function Home() {
 
     }, [])
 
-    // A cada producto se le suman los datos fijos de arriba
-    const vehiculos = productos.map(producto => ({
-        ...DATOS_FIJOS,
-        ...producto,
-    }))
+    // Firestore es la fuente de verdad: no completamos datos con valores ficticios.
+    const vehiculos = productos
 
     // =========================
     // ESTADO DE LA PANTALLA
@@ -134,7 +114,7 @@ function Home() {
 
     let lista = vehiculos.filter(v => {
 
-        const datosParaBuscar = `${v.nombre} ${v.codigo} ${v.descripcion}`.toLowerCase()
+        const datosParaBuscar = `${v.nombre} ${v.marca || ''} ${v.modelo || ''} ${v.categoria || ''} ${v.tipoVehiculo || ''} ${v.codigo} ${v.descripcion}`.toLowerCase()
         if (texto && !datosParaBuscar.includes(texto)) return false
 
         const precio = Number(v.precio)
