@@ -9,14 +9,6 @@ import './DetalleVehiculo.css'
 
 const CANTIDAD_FOTOS = 8
 
-const CARACTERISTICAS = [
-    'Frenos ABS',
-    'Inyección electrónica',
-    'Tablero digital',
-    'Llantas deportivas',
-    'Excelente estado',
-]
-
 function DetalleVehiculo({ vehiculo }) {
 
     const [indice, setIndice] = useState(0)
@@ -130,10 +122,11 @@ function DetalleVehiculo({ vehiculo }) {
 
                         <span className="detalle-estado">
                             <Icono nombre="check" tamano={13} />
-                            Vehículo disponible
+                            {Number(vehiculo.stock) > 0 ? 'Vehículo disponible' : 'Sin disponibilidad'}
                         </span>
 
-                        <span>· {vehiculo.anio}</span>
+                        <span>· {vehiculo.anio || 'Año no especificado'}</span>
+                        {vehiculo.estado && <span>· {vehiculo.estado}</span>}
 
                     </div>
 
@@ -191,34 +184,53 @@ function DetalleVehiculo({ vehiculo }) {
                         </div>
 
                         <div className="especificacion">
-
-                            <Icono
-                                nombre="etiqueta"
-                                tamano={22}
-                            />
-
+                            <Icono nombre="etiqueta" tamano={22} />
                             <div>
                                 <small>Código</small>
-                                <strong>
-                                    {vehiculo.codigo}
-                                </strong>
+                                <strong>{vehiculo.codigo || 'No especificado'}</strong>
                             </div>
+                        </div>
 
+                        <div className="especificacion">
+                            <Icono nombre="anio" tamano={22} />
+                            <div>
+                                <small>Marca y modelo</small>
+                                <strong>{[vehiculo.marca, vehiculo.modelo].filter(Boolean).join(' ') || 'No especificado'}</strong>
+                            </div>
+                        </div>
+
+                        <div className="especificacion">
+                            <Icono nombre="tipo" tamano={22} />
+                            <div>
+                                <small>Tipo / categoría</small>
+                                <strong>{[vehiculo.tipoVehiculo, vehiculo.categoria].filter(Boolean).join(' · ') || 'No especificado'}</strong>
+                            </div>
+                        </div>
+
+                        <div className="especificacion">
+                            <Icono nombre="cilindrada" tamano={22} />
+                            <div>
+                                <small>Cilindrada / motor</small>
+                                <strong>{vehiculo.cilindrada || 'No especificado'}</strong>
+                            </div>
+                        </div>
+
+                        <div className="especificacion">
+                            <Icono nombre="km" tamano={22} />
+                            <div>
+                                <small>Kilometraje</small>
+                                <strong>{vehiculo.kilometraje == null || vehiculo.kilometraje === '' ? 'No especificado' : `${Number(vehiculo.kilometraje).toLocaleString('es-AR')} km`}</strong>
+                            </div>
                         </div>
 
                     </div>
 
 
-                    <h4>Características principales</h4>
-
+                    <h4>Información del vehículo</h4>
                     <div className="detalle-chips">
-
-                        {CARACTERISTICAS.map(c => (
-                            <span key={c}>
-                                {c}
-                            </span>
-                        ))}
-
+                        {vehiculo.estado && <span>{vehiculo.estado}</span>}
+                        {vehiculo.tipoVehiculo && <span>{vehiculo.tipoVehiculo}</span>}
+                        {vehiculo.categoria && <span>{vehiculo.categoria}</span>}
                     </div>
 
                 </div>

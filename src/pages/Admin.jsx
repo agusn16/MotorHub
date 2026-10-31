@@ -17,7 +17,14 @@ const PRODUCTO_VACIO = {
     precio: '',
     stock: '',
     imagen: '',
-    anio: ''
+    anio: '',
+    marca: '',
+    modelo: '',
+    tipoVehiculo: '',
+    categoria: '',
+    cilindrada: '',
+    kilometraje: '',
+    estado: ''
 }
 
 function Admin() {
@@ -290,7 +297,14 @@ function Admin() {
             anio: productoSeleccionado.anio,
             precio: String(productoSeleccionado.precio),
             stock: String(productoSeleccionado.stock),
-            imagen: productoSeleccionado.imagen || ''
+            imagen: productoSeleccionado.imagen || '',
+            marca: productoSeleccionado.marca || '',
+            modelo: productoSeleccionado.modelo || '',
+            tipoVehiculo: productoSeleccionado.tipoVehiculo || '',
+            categoria: productoSeleccionado.categoria || '',
+            cilindrada: productoSeleccionado.cilindrada || '',
+            kilometraje: productoSeleccionado.kilometraje == null ? '' : String(productoSeleccionado.kilometraje),
+            estado: productoSeleccionado.estado || ''
         })
 
         setIndiceEditando(index)
@@ -651,6 +665,56 @@ function Admin() {
                         )}
                     </div>
 
+                    {/* MARCA */}
+                    <div className="form-group">
+                        <label>Marca</label>
+                        <input type="text" value={producto.marca} onChange={(e) => handleChange('marca', e.target.value)} placeholder="Ej: Yamaha, Fiat, Honda" />
+                    </div>
+
+                    {/* MODELO */}
+                    <div className="form-group">
+                        <label>Modelo</label>
+                        <input type="text" value={producto.modelo} onChange={(e) => handleChange('modelo', e.target.value)} placeholder="Ej: YZF-R3, Cronos, Wave" />
+                    </div>
+
+                    {/* TIPO DE VEHÍCULO */}
+                    <div className="form-group">
+                        <label>Tipo de vehículo</label>
+                        <select value={producto.tipoVehiculo} onChange={(e) => handleChange('tipoVehiculo', e.target.value)}>
+                            <option value="">Seleccionar tipo</option>
+                            <option value="Auto">Auto</option>
+                            <option value="Motocicleta">Motocicleta</option>
+                        </select>
+                    </div>
+
+                    {/* CATEGORÍA */}
+                    <div className="form-group">
+                        <label>Categoría</label>
+                        <input type="text" value={producto.categoria} onChange={(e) => handleChange('categoria', e.target.value)} placeholder="Ej: Deportiva, Sedán, SUV, Naked" />
+                    </div>
+
+                    {/* CILINDRADA */}
+                    <div className="form-group">
+                        <label>Cilindrada / Motor</label>
+                        <input type="text" value={producto.cilindrada} onChange={(e) => handleChange('cilindrada', e.target.value)} placeholder="Ej: 321 cc o 1.3 L" />
+                    </div>
+
+                    {/* KILOMETRAJE */}
+                    <div className="form-group">
+                        <label>Kilometraje (km)</label>
+                        <input type="number" min="0" value={producto.kilometraje} onChange={(e) => handleChange('kilometraje', e.target.value)} placeholder="Ej: 15000" />
+                    </div>
+
+                    {/* ESTADO */}
+                    <div className="form-group">
+                        <label>Estado</label>
+                        <select value={producto.estado} onChange={(e) => handleChange('estado', e.target.value)}>
+                            <option value="">Seleccionar estado</option>
+                            <option value="Nueva">Nueva</option>
+                            <option value="Usada">Usada</option>
+                        </select>
+                    </div>
+
                     {/* DESCRIPCIÓN */}
 
                     <div className="form-group">
@@ -696,7 +760,7 @@ function Admin() {
                                     e.target.value
                                 )
                             }
-                            placeholder="Ej: https://ejemplo.com/vehiculo.jpg"
+                            placeholder="Ej: /imagenes/2026-Yamaha-R3.jpg"
                         />
 
                     </div>

@@ -135,11 +135,17 @@
 
 .detalle-cuerpo {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     width: 100%;
-    gap: 22px;
     margin-top: 20px;
-    align-items: start;
+    box-sizing: border-box;
+}
+
+.detalle-datos {
+    width: 100%;
+    max-width: 520px;
+    margin: 0 auto;
+    box-sizing: border-box;
 }
 
 .detalle-datos h2 {
@@ -473,3 +479,6 @@
     }
 
 }
+
+
+
