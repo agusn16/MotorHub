@@ -516,3 +516,59 @@
 .modal-caja .detalle {
     padding: 56px 16px 28px;
 }
+
+
+/* =========================
+   FILTROS NUEVOS
+   Pegar al FINAL de Home.css
+========================= */
+
+/* Panel más ancho y con scroll si no entra en pantalla */
+.home-panel-filtros {
+    width: 340px;
+    max-width: calc(100vw - 48px);
+    max-height: 70vh;
+    overflow-y: auto;
+}
+
+/* Numerito con la cantidad de filtros aplicados */
+.home-filtros-cantidad {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 18px;
+    height: 18px;
+    padding: 0 5px;
+    box-sizing: border-box;
+    border-radius: 9px;
+    background-color: #2f6fed;
+    color: #ffffff;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+
+/* Colores claros fijos para el panel de filtros */
+.home-panel-filtros {
+    color-scheme: light;
+}
+
+.home-panel-filtros .home-panel-columnas select,
+.home-panel-filtros .home-panel-columnas input[type="number"] {
+    background-color: #ffffff;
+    color: #111827;
+}
+
+.home-panel-filtros .home-panel-columnas option {
+    background-color: #ffffff;
+    color: #111827;
+}
+
+.home-panel-filtros .home-panel-columnas input::placeholder {
+    color: #9ca3af;
+}
+
+/* Títulos alineados a la izquierda */
+.home-panel-columnas h4 {
+    text-align: left;
+}

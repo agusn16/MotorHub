@@ -7,14 +7,18 @@ import Icono from './Iconos'
 import ImagenVehiculo from './ImagenVehiculo'
 import './DetalleVehiculo.css'
 
-const CANTIDAD_FOTOS = 8
-
 function DetalleVehiculo({ vehiculo }) {
 
     const [indice, setIndice] = useState(0)
     const [zoom, setZoom] = useState(false)
 
-    const fotos = Array(CANTIDAD_FOTOS).fill(vehiculo.imagen)
+    // Fotos del vehículo: la principal primero y después las otras (sin repetir).
+    // Si no tiene ninguna, queda una sola casilla vacía (se ve "foto no encontrada").
+    const listaFotos = [...new Set(
+        [vehiculo.imagen, ...(vehiculo.imagenes || [])].filter(Boolean)
+    )]
+
+    const fotos = listaFotos.length > 0 ? listaFotos : ['']
     const total = fotos.length
 
     const hayMas = total > 5
@@ -83,27 +87,33 @@ function DetalleVehiculo({ vehiculo }) {
                         Zoom
                     </button>
 
-                    <button
-                        type="button"
-                        className="detalle-flecha detalle-flecha--izq"
-                        onClick={anterior}
-                        aria-label="Foto anterior"
-                    >
-                        <Icono nombre="izquierda" tamano={16} />
-                    </button>
+                    {/* Las flechas y el contador solo se ven si hay más de una foto */}
 
-                    <button
-                        type="button"
-                        className="detalle-flecha detalle-flecha--der"
-                        onClick={siguiente}
-                        aria-label="Foto siguiente"
-                    >
-                        <Icono nombre="derecha" tamano={16} />
-                    </button>
+                    {total > 1 && (
+                        <>
+                            <button
+                                type="button"
+                                className="detalle-flecha detalle-flecha--izq"
+                                onClick={anterior}
+                                aria-label="Foto anterior"
+                            >
+                                <Icono nombre="izquierda" tamano={16} />
+                            </button>
 
-                    <span className="detalle-contador">
-                        {indice + 1}/{total}
-                    </span>
+                            <button
+                                type="button"
+                                className="detalle-flecha detalle-flecha--der"
+                                onClick={siguiente}
+                                aria-label="Foto siguiente"
+                            >
+                                <Icono nombre="derecha" tamano={16} />
+                            </button>
+
+                            <span className="detalle-contador">
+                                {indice + 1}/{total}
+                            </span>
+                        </>
+                    )}
 
                 </div>
 
@@ -236,20 +246,6 @@ function DetalleVehiculo({ vehiculo }) {
                 </div>
 
             </div>
-
-
-            {/* DESCRIPCIÓN */}
-
-            <div className="detalle-descripcion">
-
-                <h4>Descripción del vehículo</h4>
-
-                <p>
-                    {vehiculo.descripcion}
-                </p>
-
-            </div>
-
 
             {/* ZOOM */}
 

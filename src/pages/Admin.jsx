@@ -19,6 +19,7 @@ const PRODUCTO_VACIO = {
     precio: '',
     stock: '',
     imagen: '',
+    imagenes: '',
     anio: '',
     marca: '',
     modelo: '',
@@ -302,6 +303,7 @@ function Admin() {
             precio: String(productoSeleccionado.precio),
             stock: String(productoSeleccionado.stock),
             imagen: productoSeleccionado.imagen || '',
+            imagenes: (productoSeleccionado.imagenes || []).join('\n'),
             marca: productoSeleccionado.marca || '',
             modelo: productoSeleccionado.modelo || '',
             tipoVehiculo: productoSeleccionado.tipoVehiculo || '',
@@ -765,6 +767,36 @@ function Admin() {
                                 )
                             }
                             placeholder="Ej: /imagenes/2026-Yamaha-R3.jpg"
+                        />
+
+                    </div>
+
+                    {/* FOTOS ADICIONALES */}
+
+                    <div className="form-group">
+
+                        <label>
+                            Fotos adicionales (una por línea)
+                        </label>
+
+                        <textarea
+                            value={producto.imagenes}
+                            onChange={(e) =>
+                                handleChange(
+                                    'imagenes',
+                                    e.target.value
+                                )
+                            }
+                            placeholder={'/imagenes/r3-lateral.jpg\n/imagenes/r3-frente.jpg'}
+                            style={{
+                                width: '100%',
+                                minHeight: '90px',
+                                padding: '10px',
+                                boxSizing: 'border-box',
+                                font: 'inherit',
+                                border: '1px solid #d1d5db',
+                                borderRadius: '6px'
+                            }}
                         />
 
                     </div>

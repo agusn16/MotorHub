@@ -7,7 +7,17 @@ import TarjetaVehiculo from '../components/TarjetaVehiculo'
 import DetalleVehiculo from '../components/DetalleVehiculo'
 import { obtenerProductos } from '../services/productos'
 
-const FILTROS_VACIOS = { desde: '', hasta: '', disponibilidad: '' }
+const FILTROS_VACIOS = {
+    tipo: '',
+    marca: '',
+    estado: '',
+    desde: '',
+    hasta: '',
+    anioDesde: '',
+    anioHasta: '',
+    kmMax: '',
+    disponibilidad: ''
+}
 
 function Home() {
 
@@ -107,6 +117,25 @@ function Home() {
     }
 
     // =========================
+    // MARCAS PARA EL DESPLEGABLE
+    // (salen de los vehículos cargados, sin repetir)
+    // =========================
+
+    const marcasPorClave = new Map()
+
+    vehiculos.forEach(v => {
+        const marca = (v.marca || '').trim()
+        if (marca && !marcasPorClave.has(marca.toLowerCase())) {
+            marcasPorClave.set(marca.toLowerCase(), marca)
+        }
+    })
+
+    const marcas = [...marcasPorClave.values()].sort((a, b) => a.localeCompare(b))
+
+    // Cuántos filtros hay aplicados (para el numerito del botón)
+    const cantidadFiltros = Object.values(filtros).filter(valor => valor !== '').length
+
+    // =========================
     // LISTA QUE SE MUESTRA
     // =========================
 
@@ -117,10 +146,32 @@ function Home() {
         const datosParaBuscar = `${v.nombre} ${v.marca || ''} ${v.modelo || ''} ${v.categoria || ''} ${v.tipoVehiculo || ''} ${v.codigo} ${v.descripcion}`.toLowerCase()
         if (texto && !datosParaBuscar.includes(texto)) return false
 
+        // Tipo (Auto / Motocicleta)
+        if (filtros.tipo && v.tipoVehiculo !== filtros.tipo) return false
+
+        // Marca (sin importar mayúsculas)
+        if (filtros.marca && (v.marca || '').trim().toLowerCase() !== filtros.marca.toLowerCase()) return false
+
+        // Estado (Nueva / Usada)
+        if (filtros.estado && v.estado !== filtros.estado) return false
+
+        // Precio
         const precio = Number(v.precio)
         if (filtros.desde !== '' && precio < Number(filtros.desde)) return false
         if (filtros.hasta !== '' && precio > Number(filtros.hasta)) return false
 
+        // Año (si el vehículo no tiene año válido, no pasa el filtro)
+        const anio = Number(v.anio)
+        if (filtros.anioDesde !== '' && !(anio >= Number(filtros.anioDesde))) return false
+        if (filtros.anioHasta !== '' && !(anio <= Number(filtros.anioHasta))) return false
+
+        // Kilómetros (si no tiene kilometraje cargado, no pasa el filtro)
+        if (filtros.kmMax !== '') {
+            const sinKm = v.kilometraje == null || v.kilometraje === ''
+            if (sinKm || Number(v.kilometraje) > Number(filtros.kmMax)) return false
+        }
+
+        // Disponibilidad
         if (filtros.disponibilidad === 'con' && Number(v.stock) <= 0) return false
         if (filtros.disponibilidad === 'sin' && Number(v.stock) > 0) return false
 
@@ -133,9 +184,10 @@ function Home() {
         lista = [...lista].sort((a, b) => Number(b.precio) - Number(a.precio))
     }
 
-    // Si todavía no se eligió ninguno, se muestra el primero
+    // El detalle siempre es de un vehículo que se ve en la lista.
+    // Si el elegido quedó afuera por los filtros, se muestra el primero de la lista.
     const seleccionado =
-        vehiculos.find(v => v.id === seleccionadoId) || vehiculos[0]
+        lista.find(v => v.id === seleccionadoId) || lista[0]
 
     // =========================
     // INTERFAZ
@@ -180,16 +232,52 @@ function Home() {
                             <button
                                 type="button"
                                 className="home-boton-barra home-boton-filtros"
-                                onClick={() => setPanelAbierto(!panelAbierto)}
+                                onClick={() => {
+                                    // Al abrir, el panel muestra lo que ya está aplicado
+                                    if (!panelAbierto) setBorrador(filtros)
+                                    setPanelAbierto(!panelAbierto)
+                                }}
                             >
                                 <Icono nombre="filtros" tamano={15} />
                                 Filtros
+                                {cantidadFiltros > 0 && (
+                                    <span className="home-filtros-cantidad">
+                                        {cantidadFiltros}
+                                    </span>
+                                )}
                             </button>
 
                             {panelAbierto && (
                                 <div className="home-panel-filtros">
 
                                     <div className="home-panel-columnas">
+
+                                        <div>
+                                            <h4>Tipo</h4>
+                                            <select
+                                                value={borrador.tipo}
+                                                onChange={e => setBorrador({ ...borrador, tipo: e.target.value })}
+                                            >
+                                                <option value="">Todos</option>
+                                                <option value="Auto">Autos</option>
+                                                <option value="Motocicleta">Motos</option>
+                                            </select>
+                                        </div>
+
+                                        <div>
+                                            <h4>Marca</h4>
+                                            <select
+                                                value={borrador.marca}
+                                                onChange={e => setBorrador({ ...borrador, marca: e.target.value })}
+                                            >
+                                                <option value="">Todas</option>
+                                                {marcas.map(marca => (
+                                                    <option key={marca} value={marca}>
+                                                        {marca}
+                                                    </option>
+                                                ))}
+                                            </select>
+                                        </div>
 
                                         <div>
                                             <h4>Precio</h4>
@@ -205,6 +293,45 @@ function Home() {
                                                 value={borrador.hasta}
                                                 onChange={e => setBorrador({ ...borrador, hasta: e.target.value })}
                                             />
+                                        </div>
+
+                                        <div>
+                                            <h4>Año</h4>
+                                            <input
+                                                type="number"
+                                                placeholder="Desde"
+                                                value={borrador.anioDesde}
+                                                onChange={e => setBorrador({ ...borrador, anioDesde: e.target.value })}
+                                            />
+                                            <input
+                                                type="number"
+                                                placeholder="Hasta"
+                                                value={borrador.anioHasta}
+                                                onChange={e => setBorrador({ ...borrador, anioHasta: e.target.value })}
+                                            />
+                                        </div>
+
+                                        <div>
+                                            <h4>Kilómetros</h4>
+                                            <input
+                                                type="number"
+                                                min="0"
+                                                placeholder="Máximo (km)"
+                                                value={borrador.kmMax}
+                                                onChange={e => setBorrador({ ...borrador, kmMax: e.target.value })}
+                                            />
+                                        </div>
+
+                                        <div>
+                                            <h4>Estado</h4>
+                                            <select
+                                                value={borrador.estado}
+                                                onChange={e => setBorrador({ ...borrador, estado: e.target.value })}
+                                            >
+                                                <option value="">Todos</option>
+                                                <option value="Nueva">Nueva</option>
+                                                <option value="Usada">Usada</option>
+                                            </select>
                                         </div>
 
                                         <div>
@@ -288,7 +415,7 @@ function Home() {
 
                     {!cargando && !error && vehiculos.length > 0 && lista.length === 0 && (
                         <p className="home-vacio">
-                            No encontramos vehículos con esa búsqueda.
+                            No encontramos vehículos con esa búsqueda o esos filtros.
                         </p>
                     )}
 
