@@ -34,6 +34,22 @@ async function codigoEnUso(codigo, idActual = null) {
     return resultado.docs.some(d => d.id !== idActual)
 }
 
+// Las fotos adicionales llegan del Admin como texto (una por línea)
+// y se guardan como una lista. También acepta una lista ya armada.
+function aListaDeFotos(valor) {
+
+    if (Array.isArray(valor)) {
+        return valor
+            .map(foto => String(foto).trim())
+            .filter(Boolean)
+    }
+
+    return String(valor || '')
+        .split('\n')
+        .map(foto => foto.trim())
+        .filter(Boolean)
+}
+
 // =========================
 // LEER TODOS
 // =========================
@@ -88,6 +104,7 @@ export async function crearProducto(datos) {
         precio: Number(datos.precio),
         stock: Number(datos.stock),
         imagen: datos.imagen || '',
+        imagenes: aListaDeFotos(datos.imagenes),
         anio: datos.anio,
         marca: datos.marca || '',
         modelo: datos.modelo || '',
@@ -124,6 +141,7 @@ export async function actualizarProducto(id, datos) {
         precio: Number(datos.precio),
         stock: Number(datos.stock),
         imagen: datos.imagen || '',
+        imagenes: aListaDeFotos(datos.imagenes),
         anio: datos.anio,
         marca: datos.marca || '',
         modelo: datos.modelo || '',
