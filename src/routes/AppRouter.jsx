@@ -1,4 +1,6 @@
 // AppRouter.jsx
+// Componente que define las rutas de la aplicación, incluyendo Home, Login, Admin y Detalle. 
+// Utiliza React Router para manejar la navegación y el contexto de autenticación para proteger la ruta de administración.
 
 import {
   BrowserRouter,
@@ -18,6 +20,7 @@ import ChatFlotante from '../components/ChatFlotante'
 
 // Solo entra el administrador. Si no lo es, vuelve al Home
 // (sin mostrar la dirección del login oculto).
+
 function RutaAdmin({ children }) {
 
   const { rol, cargando } = useAuth()

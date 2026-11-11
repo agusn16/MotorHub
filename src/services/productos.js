@@ -1,6 +1,6 @@
 // src/services/productos.js
 // Todas las operaciones con la colección "productos" de Firestore.
-// Reemplaza al servidor Express + SQLite.
+// funciones para obtener, crear, actualizar y eliminar productos.
 
 import {
     collection,
@@ -20,7 +20,7 @@ import { db } from '../firebase'
 const productosRef = collection(db, 'productos')
 
 // En SQLite el código era UNIQUE. Firestore no tiene esa restricción,
-// así que se controla acá antes de guardar.
+// se controla acá antes de guardar.
 async function codigoEnUso(codigo, idActual = null) {
 
     const consulta = query(
@@ -54,6 +54,8 @@ function aListaDeFotos(valor) {
 // LEER TODOS
 // =========================
 
+
+// Devuelve todos los productos, ordenados por fecha de creación (los más viejos primero).
 export async function obtenerProductos() {
 
     const resultado = await getDocs(productosRef)
@@ -73,6 +75,8 @@ export async function obtenerProductos() {
 // LEER UNO
 // =========================
 
+
+// Devuelve un producto por su id, o null si no existe.
 export async function obtenerProducto(id) {
 
     const resultado = await getDoc(doc(db, 'productos', String(id)))
@@ -91,12 +95,17 @@ export async function obtenerProducto(id) {
 // CREAR
 // =========================
 
+
+
+// Devuelve el producto creado, con su id asignado por Firestore.
 export async function crearProducto(datos) {
 
     if (await codigoEnUso(datos.codigo)) {
         throw new Error('CODIGO_DUPLICADO')
     }
 
+
+// Se arma el objeto a guardar, con los tipos correctos y valores por defecto.
     const nuevo = {
         nombre: datos.nombre,
         descripcion: datos.descripcion,

@@ -1,3 +1,7 @@
+// TarjetaVehiculo.jsx
+// Componente que representa una tarjeta de vehículo en la grilla de la izquierda, mostrando información básica y un botón para ver detalles en un modal en dispositivos móviles.
+// Recibe las props del vehículo, si está activa, y funciones para manejar la selección y ver detalles.
+
 import ImagenVehiculo from './ImagenVehiculo'
 
 // Una tarjeta de la grilla (la de la izquierda).

@@ -9,6 +9,10 @@
 
 /* eslint-disable react-refresh/only-export-components */
 
+
+// este contexto se usa para toda la app, no solo para admin
+
+
 import {
     createContext,
     useCallback,

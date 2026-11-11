@@ -1,4 +1,4 @@
-// Home.jsx
+// Home.jsx ( Página principal de la aplicación con buscador, filtros y lista de vehículos)
 
 import './Home.css'
 import { useEffect, useState } from 'react'
@@ -7,7 +7,8 @@ import TarjetaVehiculo from '../components/TarjetaVehiculo'
 import DetalleVehiculo from '../components/DetalleVehiculo'
 import { obtenerProductos } from '../services/productos'
 
-const FILTROS_VACIOS = {
+// Para reiniciar el panel de filtros
+const FILTROS_VACIOS = { 
     tipo: '',
     marca: '',
     estado: '',
@@ -29,7 +30,8 @@ function Home() {
     const [cargando, setCargando] = useState(true)
     const [error, setError] = useState(false)
 
-    useEffect(() => {
+    // (useEffect) Cargar los productos desde Firestore al iniciar la pantalla.
+    useEffect(() => {  
 
         const cargarProductos = async () => {
 
@@ -56,7 +58,7 @@ function Home() {
 
     }, [])
 
-    // Firestore es la fuente de verdad: no completamos datos con valores ficticios.
+    // Firestore es la fuente de la verdad, y "productos" es el estado que se actualiza cuando llegan los datos.
     const vehiculos = productos
 
     // =========================
@@ -84,6 +86,7 @@ function Home() {
         setModalAbierto(true)
     }
 
+    // En celular: cerrar el modal
     function cerrarModal() {
         setModalAbierto(false)
     }

@@ -1,5 +1,6 @@
 // =====================================================
 // DetalleVehiculo.jsx
+// Componente que muestra el detalle completo de un vehículo, incluyendo galería de fotos, información y especificaciones.
 // =====================================================
 
 import { useState } from 'react'
@@ -7,6 +8,7 @@ import Icono from './Iconos'
 import ImagenVehiculo from './ImagenVehiculo'
 import './DetalleVehiculo.css'
 
+// Componente que muestra el detalle completo de un vehículo.
 function DetalleVehiculo({ vehiculo }) {
 
     const [indice, setIndice] = useState(0)

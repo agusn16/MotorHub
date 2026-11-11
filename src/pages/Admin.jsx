@@ -1,4 +1,6 @@
 // Admin.jsx
+// Página de administración para agregar, editar y eliminar productos. Muestra estadísticas, un formulario y una tabla de productos.
+
 
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
