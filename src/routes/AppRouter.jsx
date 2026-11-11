@@ -9,6 +9,9 @@ import {
   Navigate
 } from 'react-router-dom'
 
+
+// useAuth es un hook que permite acceder al contexto de autenticación, proporcionando información 
+// sobre el rol del usuario y si la autenticación está cargando.
 import { AuthProvider, useAuth } from '../context/AuthContext'
 
 import Home from '../pages/Home'

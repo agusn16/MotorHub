@@ -38,6 +38,7 @@ function Admin() {
     // ESTADO DE LOS PRODUCTOS
     // =========================
 
+    // setproductos es la función que se utiliza para actualizar el estado de productos.
     const [productos, setProductos] = useState([])
 
     // =========================
